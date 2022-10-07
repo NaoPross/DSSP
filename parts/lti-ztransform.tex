@@ -22,12 +22,15 @@ summable (integrable) iff
 respectively. Similarly, a signal has \emph{finite energy} or is square
 summable (integrable) iff
 \begin{align*}
-	\sum_{k \in \mathbb{Z}} |f[k]|^2 < \infty
-		& \qquad (f\in\ell^2_\mathbb{K}(\mathbb{Z})) \quad\text{or} \\
-	\int_\mathbb{R} |f(t)| \,dt < \infty 
-		& \qquad (f \in L^2_\mathbb{K}(\mathbb{R})).
+	\sum_{k\in\mathbb{Z}} |f[k]|^2
+	&= \sum_{k\in\mathbb{Z}} f[k] \overline{f[k]} < \infty
+		&& (f\in\ell^2_\mathbb{K}(\mathbb{Z})), \\
+	\int_\mathbb{R} |f(t)|^2 \,dt 
+	&= \int_\mathbb{R} f(t) \overline{f(t)} \, dt < \infty 
+		&& (f \in L^2_\mathbb{K}(\mathbb{R})).
 \end{align*}
-Further, a signal is said to be \emph{bounded} if $\exists b$ such that
+Further, a signal is said to be \emph{bounded} if $\exists b < \infty$ such
+that
 \[
 	\forall k \in \mathbb{Z} : |f[k]| < b,
 	\quad\text{or}\quad
@@ -51,8 +54,8 @@ and similarly \emph{left sided} if
 \]
 Signals that are right sided for some $\tau > 0$ are said to be \emph{causal},
 while left sided signals for $\tau < 0$ are said to be \emph{anticausal}. The
-same definition also applies for a discrete signal $f[k]$, where $\tau \in
-\mathbb{Z}$ and $k \lessgtr 0$.
+same definition also applies for a discrete signal $f[k]$, for example
+$\exists n \in \mathbb{Z} : \forall k > n : f[k] = 0$.
 
 \subsection{Dirac and Kroneker delta}
 
@@ -71,6 +74,59 @@ property of $\delta(t)$ is that
 	\int_\mathbb{R} f(t) \delta(t - \tau) \, dt = f(\tau).
 \]
 
+\section{The $z$-Transform}
+
+\subsection{Definition and Properties}
+
+For a discrete signal $f[k]$ its formal $z$-transform $F(z) $ is defined to be
+\[
+	F(z) = \mathcal{Z}\{f\} = \sum_{k\in\mathbb{Z}} f[k] z^{-k}.
+\]
+The $z$-transforms $F(z)$ and $G(z)$ or $f[k]$ and $g[k]$ respectively have
+the following properties:
+\begin{description}
+	\item[Addition] $F(z) + G(z) = \mathcal{Z}\{(f + g)[\cdot]\}$,
+	\item[Scaling] For $a \in \mathbb{C} : a F(z) = \mathcal{Z}\{(af)[\cdot]\}$,
+	\item[Time shift] For $m \in \mathbb{Z} :
+		z^m F(z) = \mathcal{Z}\{f[\cdot + m]\}$,
+	\item[Product] $F(z) G(z) = \mathcal{Z}\{(f * g)[\cdot]\}$.
+\end{description}
+The time shift is to the left (past) if $m > 0$ and to the right (future) when
+$m < 0$. The product is defined only if $f*g$ is well defined in the time
+domain, further, sometimes but not always (!)
+\[
+	F(z)[G(z)H(z)] = [F(z)G(z)]H(z).
+\] A few more properties are
+\begin{description}
+	\item[Time reversal] $F(z^{-1}) = \mathcal{Z}\{f^r[\cdot]\}$,
+	\item[Conjugation] $\mathcal{Z}\{f^c[\cdot]\}
+		= \mathcal{Z}\{\overline{f^r[k]}\}
+		= \overline{F(\overline{z}^{-1})}$.
+\end{description}
+Finally it might also be useful to know that
+\[
+	\mathcal{Z}\{\Re{(f[k])}\}
+	= \mathcal{Z}\left\{\frac{f[k] + \overline{f[k]}}{2}\right\}
+	= \frac{F(z) + \overline{F(\overline{z})}}{2}
+\]
+and similarly one can use that $\Im(f[k]) = (f[k] - \overline{f[k]})/2i$.
+
+\subsection{Region of Convergence (ROC)}
+
+
+If we treat the $z$-transform as a function to the complex number $z$ we have
+to be more careful and define a ROC. We write that
+\[
+	F : \roc(f) \to \mathbb{C}, \quad
+	z \mapsto \sum_{k\in\mathbb{Z}} f[k]^z{-k},
+\]
+where
+\begin{align*}
+	\roc(f) &= \{z \in \mathbb{C} : r_1 < |z| < r_2\}, \\
+	r_1 &= \limsup_{k\to\infty} \sqrt[k]{|f[k]|}, \\
+	r_2 &= \limsup_{k\to\infty} (\sqrt[k]{|f[-k]|})^{-1}.
+\end{align*}
+
 \section{Systems}
 
 A system or model is made of two parts: a set of variables that take some
@@ -88,3 +144,37 @@ input $u$ are said to be \emph{deterministic}, and if $y(t)$ is fully determined
 by $u(t')$ when $t' \leq t$, the system is said to be \emph{causal}.
 
 \subsection{Linear Time Invariant (LTI) Systems}
+
+An LTI is entirely described by its \emph{impulse response} $h$. The output
+$y$ to an arbitrary input $u$ is given by convolving it with the impulse
+response:
+\begin{align*}
+	y[k] &= (u * h)[k] = \sum_{n\in\mathbb{Z}} u[n] h[k - n], \\
+	y(t) &= (u * h)(t) = \int_\mathbb{R} u(\tau) h(t - \tau) \, dt.
+\end{align*}
+A system is causal iff $h$ is causal, i.e. $h[k < 0] = 0$, $h(t < 0) = 0$. A
+SISO system is \emph{bounded-input bounded-output} (BIBO) stable if $h$ is
+stable.
+
+\begin{table}
+	\centering
+	\begin{tabular}{ccc}
+		\toprule
+		$f$                    & $g$                    & $f * g$                \\
+		\midrule
+		right-sided            & right-sided            & right-sided            \\
+		causal                 & causal                 & causal                 \\
+		anything               & finite                 & well defined           \\
+		\midrule
+		\bfseries bounded      & $\ell^1\text{ or }L^1$ & \bfseries bounded      \\
+		$\ell^1\text{ or }L^1$ & $\ell^1\text{ or }L^1$ & $\ell^1\text{ or }L^1$ \\
+		\midrule
+		$\ell^2\text{ or }L^2$ & $\ell^1\text{ or }L^1$ & $\ell^2\text{ or }L^2$ \\
+		$\ell^2\text{ or }L^2$ & $\ell^2\text{ or }L^2$ & bounded                \\
+		\bottomrule
+	\end{tabular}
+	\caption{
+		Important properties of the convolution product. Further note that $f * g
+		= g * f$.
+	}
+\end{table}
