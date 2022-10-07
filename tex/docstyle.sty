@@ -1,0 +1,18 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tex/docstyle}[2021/03/12 v0.1 Modifications to the style]
+
+%% Cool font
+% \PassOptionsToPackage{11pt, noamsfont}{amsart}
+% \RequirePackage{amsart}
+
+\PassOptionsToPackage{p,osf}{scholax}
+\RequirePackage{scholax}
+
+% must be loaded before newtxmath
+% amssymb should not be loaded
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+
+\PassOptionsToPackage{scaled=1.075,ncf,vvarbb}{newtxmath}
+\RequirePackage{newtxmath}
+
