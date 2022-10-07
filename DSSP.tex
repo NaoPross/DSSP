@@ -3,18 +3,16 @@
 % !TeX root = DSSP.tex
 
 %% TODO: publish to CTAN
-\documentclass[margin=normal]{tex/hsrzf}
+\documentclass[margin=small]{tex/hsrzf}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Packages
 
-%% TODO: publish to CTAN
 \usepackage{tex/hsrstud}
 
 %% Language configuration
 \usepackage{polyglossia}
 \setdefaultlanguage{english}
-% \setotherlanguage[variant=swiss]{german}
 
 %% License configuration
 \usepackage[
@@ -22,6 +20,12 @@
     modifier={by-nc-sa},
     version={4.0},
 ]{doclicense}
+
+% Maths
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tex/theorems}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Metadata
@@ -40,7 +44,7 @@
   % do not forget to add yourself!
 }
 
-\title{Summary of \texttt{\themodule}}
+\title{Summary of Digital-time Statistical Signal Processing}
 \date{\thesemester}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -70,6 +74,7 @@
 \setcounter{page}{1}
 \pagenumbering{arabic}
 
+\twocolumn
 \input{parts/lti-ztransform}
 
 \end{document}

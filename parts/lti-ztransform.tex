@@ -1,1 +1,90 @@
+% vim:ts=2 sw=2 noet spell tw=78:
+
 \section{Signals}
+
+Given two signals $f$ and $g$ the \emph{superposition} principle states that
+$(f+g)(t) = f(t) + g(t)$, while the amplification by $\gamma$ is $(\gamma
+f)(t) = \gamma f(t)$. Now, given a discrete signal $f[k]$, the \emph{reverse}
+of $f$ denoted by $f^r[k] = f[-k]$. If $f$ is complex, the \emph{conjugate} of
+$f$ is $f^c[k] = \overline{f[-k]}$.
+
+\subsection{Classes}
+
+A complex ($\mathbb{K}=\mathbb{C}$) or real ($\mathbb{K}=\mathbb{R}$),
+discrete or continuous signal $f$ is said to be \emph{stable} or absolutely
+summable (integrable) iff
+\begin{align*}
+	\sum_{k \in \mathbb{Z}} |f[k]| < \infty
+		& \qquad (f\in\ell^1_\mathbb{K}(\mathbb{Z})) \quad\text{or} \\
+	\int_\mathbb{R} |f(t)| \,dt < \infty 
+		& \qquad (f \in L^1_\mathbb{K}(\mathbb{R}))
+\end{align*}
+respectively. Similarly, a signal has \emph{finite energy} or is square
+summable (integrable) iff
+\begin{align*}
+	\sum_{k \in \mathbb{Z}} |f[k]|^2 < \infty
+		& \qquad (f\in\ell^2_\mathbb{K}(\mathbb{Z})) \quad\text{or} \\
+	\int_\mathbb{R} |f(t)| \,dt < \infty 
+		& \qquad (f \in L^2_\mathbb{K}(\mathbb{R})).
+\end{align*}
+Further, a signal is said to be \emph{bounded} if $\exists b$ such that
+\[
+	\forall k \in \mathbb{Z} : |f[k]| < b,
+	\quad\text{or}\quad
+	\forall t \in \mathbb{R} : |f(t)| < b.
+\]
+The set of bounded discrete and continuous signals are denoted with
+$\ell^\infty_\mathbb{K}(\mathbb{Z})$ and $L^\infty_\mathbb{K}(\mathbb{R})$
+respectively. Note that
+\[
+	\ell^1_\mathbb{K}(\mathbb{Z}) \subset
+	\ell^2_\mathbb{K}(\mathbb{Z}) \subset
+	\ell^\infty_\mathbb{K}(\mathbb{Z}).
+\]
+Finally, a signal is said to be \emph{right sided} if
+\[
+	\exists \tau \in \mathbb{R} : \forall t < \tau : f(t) = 0,
+\]
+and similarly \emph{left sided} if 
+\[
+	\exists \tau \in \mathbb{R} : \forall t > \tau : f(t) = 0.
+\]
+Signals that are right sided for some $\tau > 0$ are said to be \emph{causal},
+while left sided signals for $\tau < 0$ are said to be \emph{anticausal}. The
+same definition also applies for a discrete signal $f[k]$, where $\tau \in
+\mathbb{Z}$ and $k \lessgtr 0$.
+
+\subsection{Dirac and Kroneker delta}
+
+The Kroneker delta is like the identity matrix but as discrete function
+\[
+	\delta[k] = \begin{cases}
+		1 & \text{if } k = 0, \\
+		0 & \text{otherwise}.
+	\end{cases}
+\]
+The Dirac delta is a distribution, which
+is the limit of a sequence of functions $\lim_{n \to \infty} \delta_n(t)$,
+where $\delta_n(t < 1/(2n)) = n$ otherwise $\delta(t) = 0$. The important
+property of $\delta(t)$ is that
+\[
+	\int_\mathbb{R} f(t) \delta(t - \tau) \, dt = f(\tau).
+\]
+
+\section{Systems}
+
+A system or model is made of two parts: a set of variables that take some
+value in a \emph{configuration space} and a \emph{permitted behaviour}, which
+is a subset of the configuration space. A system is said to be
+\emph{dynamical} if some or all variables are functions of time. Further a
+system is said to be \emph{linear} is the configuration space is a
+\emph{vector space}, and the permitted behaviour is a \emph{subspace} of the
+configuration space. Connecting two linear systems yields a linear system.
+
+Finally, systems can be classified as being \emph{single-input single-output}
+(SISO), \emph{multiple-input multiple-output} (MISO) or a combination of the
+two (MISO, SIMO). SISO systems whose output signal $y$ is fully determined by the
+input $u$ are said to be \emph{deterministic}, and if $y(t)$ is fully determined
+by $u(t')$ when $t' \leq t$, the system is said to be \emph{causal}.
+
+\subsection{Linear Time Invariant (LTI) Systems}
