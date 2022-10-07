@@ -1,6 +1,6 @@
 % !TeX program = xelatex
 % !TeX encoding = utf8
-% !TeX root = Vorlage.tex
+% !TeX root = DSSP.tex
 
 %% TODO: publish to CTAN
 \documentclass[margin=normal]{tex/hsrzf}
@@ -13,25 +13,25 @@
 
 %% Language configuration
 \usepackage{polyglossia}
-\setdefaultlanguage[variant=swiss]{german}
+\setdefaultlanguage{english}
+% \setotherlanguage[variant=swiss]{german}
 
 %% License configuration
 \usepackage[
     type={CC},
     modifier={by-nc-sa},
     version={4.0},
-    lang={german},
 ]{doclicense}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Metadata
 
 \course{Elektrotechnik}
-\module{ModAbk}
-\semester{Fr\"uhlingssemester 2020}
+\module{DSSP}
+\semester{Fall 2022}
 
-\authoremail{vorname.name@ost.ch}
-\author{\textsl{Vorname Name} -- \texttt{\theauthoremail}}
+\authoremail{npross@stud.ethz.ch}
+\author{\textsl{Naoki Pross} -- \texttt{\theauthoremail}}
 
 % did someone help you with this work?
 \contributors{
@@ -40,7 +40,7 @@
   % do not forget to add yourself!
 }
 
-\title{\texttt{\themodule} Zusammenfassung}
+\title{Summary of \texttt{\themodule}}
 \date{\thesemester}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -60,7 +60,7 @@
 % \section*{Contributors}
 % \thecontributors
 
-\section*{Lizenz}
+\section*{License}
 \doclicenseThis
 
 \tableofcontents
@@ -70,10 +70,6 @@
 \setcounter{page}{1}
 \pagenumbering{arabic}
 
-\section{Einf\"uhrung}
-\[
-  i\hbar \partial_t \left| \psi(t) \right\rangle 
-    = \hat{H} \left| \psi(t) \right\rangle
-\]
+\input{parts/lti-ztransform}
 
 \end{document}
