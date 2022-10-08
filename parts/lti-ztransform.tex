@@ -76,13 +76,14 @@ property of $\delta(t)$ is that
 
 \section{The $z$-Transform}
 
-\subsection{Definition and Properties}
+\subsection{Formal Definition and Properties}
 
-For a discrete signal $f[k]$ its formal $z$-transform $F(z) $ is defined to be
+For a discrete signal $f[k]$ its \emph{formal} $z$-transform $F(z) $ is
+defined to be
 \[
 	F(z) = \mathcal{Z}\{f\} = \sum_{k\in\mathbb{Z}} f[k] z^{-k}.
 \]
-The $z$-transforms $F(z)$ and $G(z)$ or $f[k]$ and $g[k]$ respectively have
+The $z$-transforms $F(z)$ and $G(z)$ of $f[k]$ and $g[k]$ respectively have
 the following properties:
 \begin{description}
 	\item[Addition] $F(z) + G(z) = \mathcal{Z}\{(f + g)[\cdot]\}$,
@@ -100,32 +101,51 @@ domain, further, sometimes but not always (!)
 \begin{description}
 	\item[Time reversal] $F(z^{-1}) = \mathcal{Z}\{f^r[\cdot]\}$,
 	\item[Conjugation] $\mathcal{Z}\{f^c[\cdot]\}
-		= \mathcal{Z}\{\overline{f^r[k]}\}
+		= \mathcal{Z}\{\overline{f^r[\cdot]}\}
 		= \overline{F(\overline{z}^{-1})}$.
 \end{description}
-Finally it might also be useful to know that
+It might also be useful to know that
 \[
-	\mathcal{Z}\{\Re{(f[k])}\}
-	= \mathcal{Z}\left\{\frac{f[k] + \overline{f[k]}}{2}\right\}
+	\mathcal{Z}\{\Re{(f[\cdot])}\}
+	= \mathcal{Z}\left\{\frac{f[\cdot] + \overline{f[\cdot]}}{2}\right\}
 	= \frac{F(z) + \overline{F(\overline{z})}}{2}
 \]
-and similarly one can use that $\Im(f[k]) = (f[k] - \overline{f[k]})/2i$.
+and similarly one can use that $\Im(f[\cdot]) = (f[\cdot] -
+\overline{f[\cdot]})/2i$. Finally, the following notation is to indicate the
+causal part of $F(z)$:
+\[
+	F(z) \mod z = \sum_{k=0}^\infty f[k] z^{-k}.
+\]
 
-\subsection{Region of Convergence (ROC)}
+\subsection{Analytic Definition and the Region of Convergence (ROC)}
 
-
-If we treat the $z$-transform as a function to the complex number $z$ we have
-to be more careful and define a ROC. We write that
+If we treat the $z$-transform as a function of the complex number $z$ we have
+to be more careful and define a ROC. We call this the \emph{analytical}
+$z$-transform and write
 \[
 	F : \roc(f) \to \mathbb{C}, \quad
-	z \mapsto \sum_{k\in\mathbb{Z}} f[k]^z{-k},
+	z \mapsto \sum_{k\in\mathbb{Z}} f[k]z^{-k},
 \]
 where
 \begin{align*}
 	\roc(f) &= \{z \in \mathbb{C} : r_1 < |z| < r_2\}, \\
-	r_1 &= \limsup_{k\to\infty} \sqrt[k]{|f[k]|}, \\
-	r_2 &= \limsup_{k\to\infty} (\sqrt[k]{|f[-k]|})^{-1}.
+	r_1 &= \limsup_{k\to\infty} \sqrt[k]{|f[k]|}, \\ 
+	r_2 &= \limsup_{k\to\infty} \left(\sqrt[k]{|f[-k]|}\right)^{-1}.
 \end{align*}
+The ROC follows has the following algebraic properties. Let $f,g,h$ be
+discrete signals:
+\begin{description}
+	\item[Addition] $\roc(f) \cap \roc(g) \subseteq \roc(f + g)$,
+	\item[Scaling] For $a \in \mathbb{C} \setminus \{0\} : \roc(af) = \roc(f)$,
+	\item[Time shift] If we let $H(z) = z^m F(z)$ with $m \in \mathbb{Z}$ then
+		$\roc(h) = \roc(f)$,
+	\item[Product] $\roc(f) \cap \roc(g) \subseteq \roc(f * g)$,
+	\item[Time reversal] If $r_1$ and $r_2$ are the radii of the ROC of $f$,
+		then $\roc(f^r) = \{ z \in\mathbb{C} : 1/r_2 < |z| < 1/r_1 \}$.
+\end{description}
+If the unit circle is contained in $\roc(f)$ then $f[\cdot]$ is stable, i.e.
+$r_1 \leq 1$ and $r_2 \geq 1$, moreover if $F(z)$ is rational the converse is
+also true.
 
 \section{Systems}
 
@@ -160,21 +180,29 @@ stable.
 	\centering
 	\begin{tabular}{ccc}
 		\toprule
-		$f$                    & $g$                    & $f * g$                \\
+		$f$ & $g$ & $f * g$ \\
 		\midrule
-		right-sided            & right-sided            & right-sided            \\
-		causal                 & causal                 & causal                 \\
-		anything               & finite                 & well defined           \\
+		right-sided & right-sided & right-sided  \\
+		causal      & causal      & causal       \\
+		anything    & finite      & well defined \\
 		\midrule
-		\bfseries bounded      & $\ell^1\text{ or }L^1$ & \bfseries bounded      \\
-		$\ell^1\text{ or }L^1$ & $\ell^1\text{ or }L^1$ & $\ell^1\text{ or }L^1$ \\
+		\bfseries bounded
+			& $\ell^1\text{ or }L^1$
+			& \bfseries bounded \\
+		$\ell^1\text{ or }L^1$
+			& $\ell^1\text{ or }L^1$
+			& $\ell^1\text{ or }L^1$ \\
 		\midrule
-		$\ell^2\text{ or }L^2$ & $\ell^1\text{ or }L^1$ & $\ell^2\text{ or }L^2$ \\
-		$\ell^2\text{ or }L^2$ & $\ell^2\text{ or }L^2$ & bounded                \\
+		$\ell^2\text{ or }L^2$
+			& $\ell^1\text{ or }L^1$
+			& $\ell^2\text{ or }L^2$ \\
+		$\ell^2\text{ or }L^2$
+			& $\ell^2\text{ or }L^2$
+			& bounded \\
 		\bottomrule
 	\end{tabular}
 	\caption{
 		Important properties of the convolution product. Further note that $f * g
-		= g * f$.
+		= g * f$, and that bounded means $\in \ell^\infty$ or $\in L^\infty$.
 	}
 \end{table}
