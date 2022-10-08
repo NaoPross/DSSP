@@ -1,0 +1,46 @@
+% vim:ts=2 sw=2 noet spell tw=78:
+
+\section{Filters}
+
+\subsection{Inverse Signal}
+
+$f[k]$ is said to be the \emph{inverse} of $g[k]$ if $F(z)G(z) = 1$.
+If $f$ is an impulse response of a system, then $g$ is the \emph{inverse
+filter} of said system. $f$ may not be unique, so if there are many ($f_i$),
+any linear combination of inverse filters ($\alpha f_1 + \beta f_2$) is still
+an inverse filter. Therefore $1/F(z)$ does not represent a unique signal! One
+common way to solve this ambiguity is to enforce that $f$ and $g$ are right
+sided, then there is only one (right sided) inverse. The same also applies to
+left sided signals.
+
+% TODO: computations, stable vs unstable inverse
+% To compute the inverse one can use long division. The left sided signal is
+% obtained by performing the long division of 
+
+\subsection{Linear Equalization}
+
+A linear equalizer for $H(z)$ is a $G(z)$ such that
+\[
+	H(z) G(z) = z^{-L} + E(z) \approx z^{-L}
+\]
+for a delay $L \geq 1$, where $E(z)$ is an error term that can be made
+arbitrarily small by choosing an appropriate $L$.
+
+\subsection{Decision-Feedback Equalization}
+
+A DFE for $H(z)$ uses the fact that
+\[
+	H(z) = H_1(z) + z^{-L-1} H_2(z), \text{ where }
+\]
+\[
+	H_1(z) = \sum_{k=0}^L h[k] z^{-k}, \quad
+	H_2(z) = z^{L+1}\sum_{k=L+1}^\infty h[k] z^{-k}.
+\]
+The equalizer has a forward and backwards filter, $G_f(z)$ and $G_b(z)$
+respectively, that are given by
+\[
+	G_b(z) = -H_2(z), \quad
+	G_f(z) = z^L F(z) \mod z.
+\]
+where $F(z)$ is the stable (left sided) inverse of $H_1(z)$ truncated at $L$
+terms.
